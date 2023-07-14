@@ -112,5 +112,7 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/zhb161/zhb161.github.io.git
+  repo: 
+    gitee: git@gitee.com:abjtxf/abjtxf.git
+    github: https://github.com/zhb161/zhb161.github.io.git
   branch: master
