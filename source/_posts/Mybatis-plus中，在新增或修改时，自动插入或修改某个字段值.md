@@ -6,6 +6,7 @@ tags:
 - springboot
 - java
 - mybatis-plus
+- 工具
 categories:
 - 从头创建一个新项目可能需要的配置
 ---
