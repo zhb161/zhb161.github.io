@@ -113,6 +113,5 @@ theme: butterfly
 deploy:
   type: git
   repo: 
-    gitee: git@gitee.com:abjtxf/abjtxf.git
     github: https://github.com/zhb161/zhb161.github.io.git
   branch: master
