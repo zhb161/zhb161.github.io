@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>青戈程序员_nacos——服务注册 | 阿冰和桃桃的小站</title><meta name="author" content="阿冰"><meta name="copyright" content="阿冰"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="传统大并发，高流量的场景不适合使用普通的技术，所以有了微服务 链接：【最适合小白学习的SpringCloud微服务实战-全程敲代码纯干货分享】https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1UG411u7XP?vd_source&#x3D;10e3dfac95ac3a6883b1f8a6c3bc65d5 nacos是springcloud的一个注册中心 1 组件下载  下载zip 2 创">
+<meta property="og:type" content="article">
+<meta property="og:title" content="青戈程序员_nacos——服务注册">
+<meta property="og:url" content="http://icepeach.top/2022/09/21/%E9%9D%92%E6%88%88%E7%A8%8B%E5%BA%8F%E5%91%98_nacos%E2%80%94%E2%80%94%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/index.html">
+<meta property="og:site_name" content="阿冰和桃桃的小站">
+<meta property="og:description" content="传统大并发，高流量的场景不适合使用普通的技术，所以有了微服务 链接：【最适合小白学习的SpringCloud微服务实战-全程敲代码纯干货分享】https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1UG411u7XP?vd_source&#x3D;10e3dfac95ac3a6883b1f8a6c3bc65d5 nacos是springcloud的一个注册中心 1 组件下载  下载zip 2 创">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://icepeach.top/img/xiaogong.png">
+<meta property="article:published_time" content="2022-09-21T00:25:14.000Z">
+<meta property="article:modified_time" content="2024-03-20T03:14:44.917Z">
+<meta property="article:author" content="阿冰">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="spring boot">
+<meta property="article:tag" content="微服务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://icepeach.top/img/xiaogong.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://icepeach.top/2022/09/21/%E9%9D%92%E6%88%88%E7%A8%8B%E5%BA%8F%E5%91%98_nacos%E2%80%94%E2%80%94%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-8989801221024899',
+  enable_page_level_ads: 'true'
+});</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/db.json","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '青戈程序员_nacos——服务注册',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-20 11:14:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="/live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/xiaogong.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('/img/xiaogong.png')"><nav id="nav"><span id="blog-info"><a href="/" title="阿冰和桃桃的小站"><span class="site-name">阿冰和桃桃的小站</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">青戈程序员_nacos——服务注册</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-21T00:25:14.000Z" title="发表于 2022-09-21 08:25:14">2022-09-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-20T03:14:44.917Z" title="更新于 2024-03-20 11:14:44">2024-03-20</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">910</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="青戈程序员_nacos——服务注册"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>传统大并发，高流量的场景不适合使用普通的技术，所以有了微服务</p>
+<p>链接：【最适合小白学习的SpringCloud微服务实战-全程敲代码纯干货分享】<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1UG411u7XP?vd_source=10e3dfac95ac3a6883b1f8a6c3bc65d5">https://www.bilibili.com/video/BV1UG411u7XP?vd_source=10e3dfac95ac3a6883b1f8a6c3bc65d5</a></p>
+<p>nacos是springcloud的一个注册中心</p>
+<h4 id="1-组件下载"><a href="#1-组件下载" class="headerlink" title="1 组件下载"></a>1 组件下载</h4><p><img src="https://img-blog.csdnimg.cn/img_convert/1c4b7901d1fbb73c24f7ae571c1599c8.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bdf80580b779707728eede6531b6caae.png" alt="img"></p>
+<p>下载zip</p>
+<h4 id="2-创建服务"><a href="#2-创建服务" class="headerlink" title="2 创建服务"></a>2 创建服务</h4><h5 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/3f553190af975cff1e9701a72ab4d457.png" alt="img"></p>
+<h5 id="选择组件（暂时选这个，之后再选其他的）"><a href="#选择组件（暂时选这个，之后再选其他的）" class="headerlink" title="选择组件（暂时选这个，之后再选其他的）"></a>选择组件（暂时选这个，之后再选其他的）</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/2a1d404aca9a5f50c92c91d33b3889e5.png" alt="img"></p>
+<p>现在这个项目是作为父级，咱们可以把不必要的东西删掉</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/6222157a6a4c304b380d313953dea864.png" alt="img"></p>
+<h5 id="pom：add-as-maven-project"><a href="#pom：add-as-maven-project" class="headerlink" title="pom：add as maven project"></a>pom：add as maven project</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/0aa694cb7f96787ac506f304f14dac04.png" alt="img"></p>
+<p>test和start不需要可以删掉</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f78bf040bbf15cac394f9c7e85a652ba.png" alt="img"></p>
+<p>父级的作用就是控制版本，版本之间的对应关系一定要对，具体的对应关系可以在springcloudalibaba的GitHub&#x2F;wiki中找到</p>
+<p><img src="https://img-blog.csdnimg.cn/0fd013119c294fb29248fe289f027f89.png#pic_center" alt="img"></p>
+<p>ps：</p>
+<h5 id="报错：Cannot-resolve-plugin-org-springframework-boot-spring-boot-maven-plugin-2-7-3"><a href="#报错：Cannot-resolve-plugin-org-springframework-boot-spring-boot-maven-plugin-2-7-3" class="headerlink" title="报错：Cannot resolve plugin org.springframework.boot:spring-boot-maven-plugin:2.7.3"></a>报错：Cannot resolve plugin org.springframework.boot:spring-boot-maven-plugin:2.7.3</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cannot resolve plugin org.springframework.boot:spring-boot-maven-plugin:<span class="number">2.7</span><span class="number">.3</span></span><br></pre></td></tr></table></figure>
+
+<p>因为springboot版本要和你的版本一样，解决方法：</p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43923436/article/details/121394457">(4条消息) Cannot resolve plugin org.springframework.boot:spring-boot-maven-plugin: 解决办法_大王我亲自来巡山的博客-CSDN博客</a></p>
+<p>我将我的版本改成了和自己一样的2.5.2</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e1c5aeb218e7379c869a9929f62352dd.png" alt="img"></p>
+<h4 id="3-nacos的启动"><a href="#3-nacos的启动" class="headerlink" title="3 nacos的启动"></a>3 nacos的启动</h4><p>nacos的bin文件夹中：cmd是Windows的启动脚本</p>
+<p><img src="https://img-blog.csdnimg.cn/667e0bd6489c4ced8e2e2886e1f468f9.png#pic_center" alt="img"></p>
+<p>如果启动不成功，编辑模式打开cmd文件（就是用记事本或者其他软件打开）</p>
+<p>找到：set MODE&#x3D;”cluster”</p>
+<p>将cluster修改为standalone</p>
+<p>&#x3D;&#x3D;注：&#x3D;&#x3D;好习惯：添加注释：rem cluster</p>
+<h5 id="运行成功画面："><a href="#运行成功画面：" class="headerlink" title="运行成功画面："></a>运行成功画面：</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/f4d5967e94ed15dcf9764c8fcdd04592.png" alt="img"></p>
+<h5 id="浏览器访问"><a href="#浏览器访问" class="headerlink" title="浏览器访问"></a>浏览器访问</h5><p>访问这里的地址，访问成功了说明项目启动成功了：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e6fbea4a6fa8a6cea6bc866dab01c95c.png" alt="img"></p>
+<p>成功：<img src="https://img-blog.csdnimg.cn/img_convert/2b0a212115ae82571f8671ac381bb7a8.png" alt="img"></p>
+<p>然后现在访问localhost:8848&#x2F;nacos</p>
+<p><strong>访问成功</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/81a8cf5614e3345f1ed2a2dec2f24ba7.png" alt="img"></p>
+<p>默认的账号密码都是nacos</p>
+<h4 id="4-创建子模块"><a href="#4-创建子模块" class="headerlink" title="4 创建子模块"></a>4 创建子模块</h4><p>使用maven新建子模块</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cf638a3499cf847a336bd43cbf80171a.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0be666ddffe35b6d9618527452ca905b.png" alt="img"></p>
+<h4 id="父级pom添加依赖管理"><a href="#父级pom添加依赖管理" class="headerlink" title="父级pom添加依赖管理"></a>父级pom添加依赖管理</h4><p><dependencyManagement>的左右是在父级添加过依赖后，子模块就不用再添加了</p>
+<p>这里对应的springboot的版本是2.4.2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;<span class="number">2020.0</span><span class="number">.1</span>&lt;/version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">                &lt;scope&gt;<span class="keyword">import</span>&lt;/scope&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;<span class="number">2021.1</span>&lt;/version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">                &lt;scope&gt;<span class="keyword">import</span>&lt;/scope&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line">        &lt;/dependencies&gt;</span><br><span class="line">    &lt;/dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-子模块添加nacos依赖"><a href="#5-子模块添加nacos依赖" class="headerlink" title="5 子模块添加nacos依赖"></a>5 子模块添加nacos依赖</h4><p><img src="https://img-blog.csdnimg.cn/a80567529fe34601bd85364fd1536abe.png#pic_center" alt="img"></p>
+<p>在模块的pom中添加</p>
+<p><img src="https://img-blog.csdnimg.cn/802cb3aec070483e8247d3e213a93551.png#pic_center" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-新建启动类"><a href="#6-新建启动类" class="headerlink" title="6 新建启动类"></a>6 新建启动类</h4><p><img src="https://img-blog.csdnimg.cn/8f94fc1483584b198d2a225057380f02.png#pic_center" alt="img"></p>
+<p>发现无法添加注解：要在子模块加一个依赖包：web组件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>实体类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderApplication</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(OrderApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-启动启动类"><a href="#7-启动启动类" class="headerlink" title="7 启动启动类"></a>7 启动启动类</h4><p>报错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: Param <span class="string">&#x27;serviceName&#x27;</span> is illegal, serviceName is blank</span><br></pre></td></tr></table></figure>
+
+<p>原因是什么什么识别不了，要在父级添加一个依赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-bootstrap&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>虽然引用了nacos，但是没有注册，在启动类添加注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-添加配置"><a href="#8-添加配置" class="headerlink" title="8 添加配置"></a>8 添加配置</h4><p>resource中添加配置文件bootstrap.yml</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: <span class="number">8000</span></span><br><span class="line"></span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-order</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      server-addr: localhost:<span class="number">8848</span></span><br><span class="line">      discovery:</span><br><span class="line">        ephemeral: <span class="literal">false</span> #如果这里是一个短暂的实例,就用TRUE</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-运行"><a href="#9-运行" class="headerlink" title="9 运行"></a>9 运行</h4><p>看到nacos registry, DEFAULT_GROUP service-order 2.0.0.1:8000 register finished</p>
+<p>说明注册成功</p>
+<p>打开nacos查看，发现也注册好了</p>
+<p><img src="https://img-blog.csdnimg.cn/2ae100fd77f3443488086c826983e8c9.png#pic_center" alt="img"></p>
+<h4 id="10-多个运行"><a href="#10-多个运行" class="headerlink" title="10 多个运行"></a>10 多个运行</h4><h5 id="新建一个运行："><a href="#新建一个运行：" class="headerlink" title="新建一个运行："></a>新建一个运行：</h5><p>设置端口号和允许并发运行</p>
+<p><img src="https://img-blog.csdnimg.cn/71a6cfe454bc4ca0918644751957672b.png#pic_center" alt="img"></p>
+<h5 id="设置多个并发运行："><a href="#设置多个并发运行：" class="headerlink" title="设置多个并发运行："></a>设置多个并发运行：</h5><p><img src="https://img-blog.csdnimg.cn/7601a0150ac64fc4ab9f60b8d144a237.png#pic_center" alt="img"></p>
+<p>添加springboot</p>
+<p><img src="https://img-blog.csdnimg.cn/b2ab712e6a394240b169dfe4d5a48fe8.png#pic_center" alt="img"></p>
+<p>就能看到了：</p>
+<p><img src="https://img-blog.csdnimg.cn/f6e01d27b6af4e29af68a20592d8a4e8.png#pic_center" alt="img"></p>
+<p>三个都运行后：</p>
+<p><img src="https://img-blog.csdnimg.cn/a278e4cefca94ba7af73826d878a1022.png#pic_center" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://icepeach.top">阿冰</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://icepeach.top/2022/09/21/%E9%9D%92%E6%88%88%E7%A8%8B%E5%BA%8F%E5%91%98_nacos%E2%80%94%E2%80%94%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/">http://icepeach.top/2022/09/21/%E9%9D%92%E6%88%88%E7%A8%8B%E5%BA%8F%E5%91%98_nacos%E2%80%94%E2%80%94%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://icepeach.top" target="_blank">阿冰和桃桃的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java</a><a class="post-meta__tags" href="/tags/spring-boot/">spring boot</a><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></div><div class="post_share"><div class="social-share" data-image="/img/xiaogong.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/09/22/%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%91%A8%E9%98%B3spring%20cloud%20alibaba%E7%AC%94%E8%AE%B0/" title="尚硅谷周阳spring cloud alibaba笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">尚硅谷周阳spring cloud alibaba笔记</div></div></a></div><div class="next-post pull-right"><a href="/2021/05/17/%E7%8E%B0%E4%BB%A3%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E4%BD%9C%E4%B8%9A3-19/" title="现代设计方法作业3-19"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">现代设计方法作业3-19</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/21/springboot%E6%9C%80%E5%85%A8%EF%BC%8C%E6%9C%80%E5%AE%8C%E6%95%B4%EF%BC%8C%E6%9C%80%E9%80%82%E5%90%88%E5%B0%8F%E7%99%BD%E6%95%99%E7%A8%8B%EF%BC%88%E5%BC%80%E5%8F%91%E5%AE%9E%E7%94%A8%E7%AF%87%EF%BC%89/" title="springboot最全，最完整，最适合小白教程（开发实用篇）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-21</div><div class="title">springboot最全，最完整，最适合小白教程（开发实用篇）</div></div></a></div><div><a href="/2023/08/21/springboot%E6%9C%80%E5%85%A8%EF%BC%8C%E6%9C%80%E5%AE%8C%E6%95%B4%EF%BC%8C%E6%9C%80%E9%80%82%E5%90%88%E5%B0%8F%E7%99%BD%E6%95%99%E7%A8%8B%EF%BC%88%E8%BF%90%E7%BB%B4%E5%AE%9E%E7%94%A8%E7%AF%87%EF%BC%89/" title="springboot最全，最完整，最适合小白教程（运维实用篇）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-21</div><div class="title">springboot最全，最完整，最适合小白教程（运维实用篇）</div></div></a></div><div><a href="/2023/08/21/springboot%E6%9C%80%E5%85%A8%EF%BC%8C%E6%9C%80%E5%AE%8C%E6%95%B4%EF%BC%8C%E6%9C%80%E9%80%82%E5%90%88%E5%B0%8F%E7%99%BD%E6%95%99%E7%A8%8B%EF%BC%88%E5%8E%9F%E7%90%86%E7%AF%87%EF%BC%89/" title="springboot最全，最完整，最适合小白教程（原理篇）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-21</div><div class="title">springboot最全，最完整，最适合小白教程（原理篇）</div></div></a></div><div><a href="/2022/09/22/%E5%B0%9A%E7%A1%85%E8%B0%B7%E5%91%A8%E9%98%B3spring%20cloud%20alibaba%E7%AC%94%E8%AE%B0/" title="尚硅谷周阳spring cloud alibaba笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-22</div><div class="title">尚硅谷周阳spring cloud alibaba笔记</div></div></a></div><div><a href="/2024/03/18/typora%E8%AE%BE%E7%BD%AE%E9%AB%98%E4%BA%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="typora设置高亮快捷键"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-18</div><div class="title">typora设置高亮快捷键</div></div></a></div><div><a href="/2024/03/18/%E4%B8%80%E5%8F%A5%E4%BB%A3%E7%A0%81%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="一句代码获取当前时间的字符串&#96;"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-18</div><div class="title">一句代码获取当前时间的字符串&#96;</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/xiaogong.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿冰</div><div class="author-info__description">你好，很高兴见到你！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zhb161"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zhb161" target="_blank" title="zhb161"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2427328505@qq.com" target="_blank" title="2427328505@qq.com"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2427328505&amp;site=qq&amp;menu=yes" target="_blank" title="2427328505"><i class="fab fa-qq" style="color: QQ;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BB%84%E4%BB%B6%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">1 组件下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text">2 创建服务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.1.</span> <span class="toc-text">创建新项目</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%BB%84%E4%BB%B6%EF%BC%88%E6%9A%82%E6%97%B6%E9%80%89%E8%BF%99%E4%B8%AA%EF%BC%8C%E4%B9%8B%E5%90%8E%E5%86%8D%E9%80%89%E5%85%B6%E4%BB%96%E7%9A%84%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">选择组件（暂时选这个，之后再选其他的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#pom%EF%BC%9Aadd-as-maven-project"><span class="toc-number">2.3.</span> <span class="toc-text">pom：add as maven project</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%EF%BC%9ACannot-resolve-plugin-org-springframework-boot-spring-boot-maven-plugin-2-7-3"><span class="toc-number">2.4.</span> <span class="toc-text">报错：Cannot resolve plugin org.springframework.boot:spring-boot-maven-plugin:2.7.3</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-nacos%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="toc-number">3.</span> <span class="toc-text">3 nacos的启动</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%88%90%E5%8A%9F%E7%94%BB%E9%9D%A2%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">运行成功画面：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE"><span class="toc-number">3.2.</span> <span class="toc-text">浏览器访问</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%9B%E5%BB%BA%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">4.</span> <span class="toc-text">4 创建子模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%88%B6%E7%BA%A7pom%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">父级pom添加依赖管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%AD%90%E6%A8%A1%E5%9D%97%E6%B7%BB%E5%8A%A0nacos%E4%BE%9D%E8%B5%96"><span class="toc-number">6.</span> <span class="toc-text">5 子模块添加nacos依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%96%B0%E5%BB%BA%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-number">7.</span> <span class="toc-text">6 新建启动类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E5%90%AF%E5%8A%A8%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-number">8.</span> <span class="toc-text">7 启动启动类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE"><span class="toc-number">9.</span> <span class="toc-text">8 添加配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E8%BF%90%E8%A1%8C"><span class="toc-number">10.</span> <span class="toc-text">9 运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E5%A4%9A%E4%B8%AA%E8%BF%90%E8%A1%8C"><span class="toc-number">11.</span> <span class="toc-text">10 多个运行</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%BF%90%E8%A1%8C%EF%BC%9A"><span class="toc-number">11.1.</span> <span class="toc-text">新建一个运行：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%A4%9A%E4%B8%AA%E5%B9%B6%E5%8F%91%E8%BF%90%E8%A1%8C%EF%BC%9A"><span class="toc-number">11.2.</span> <span class="toc-text">设置多个并发运行：</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/18/%E8%AF%A5%E5%BC%80%E5%A7%8B%E8%AF%BB%E4%B9%A6%E4%BA%86/" title="该开始读书了">该开始读书了</a><time datetime="2024-03-18T15:40:38.000Z" title="发表于 2024-03-18 23:40:38">2024-03-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/18/html%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E9%9A%90%E8%97%8F%EF%BC%8C%E4%BB%A5%E5%8F%8A%E7%94%A8jquery%E6%9D%A5%E6%98%BE%E7%A4%BA%E5%92%8C%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0/" title="html中元素的隐藏，以及用jquery来显示和隐藏元素">html中元素的隐藏，以及用jquery来显示和隐藏元素</a><time datetime="2024-03-18T11:21:30.000Z" title="发表于 2024-03-18 19:21:30">2024-03-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/18/html%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="html入门笔记">html入门笔记</a><time datetime="2024-03-18T11:21:30.000Z" title="发表于 2024-03-18 19:21:30">2024-03-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/18/typora%E8%AE%BE%E7%BD%AE%E9%AB%98%E4%BA%AE%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="typora设置高亮快捷键">typora设置高亮快捷键</a><time datetime="2024-03-18T10:30:10.000Z" title="发表于 2024-03-18 18:30:10">2024-03-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/03/18/%E4%B8%80%E8%A1%8C%E6%8C%87%E4%BB%A4%E5%85%B3%E9%97%ADwindows%E7%89%B9%E5%AE%9A%E7%AB%AF%E5%8F%A3%EF%BC%8C%E8%A7%A3%E5%86%B3%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E9%97%AE%E9%A2%98/" title="一行指令关闭windows特定端口，解决端口被占用问题">一行指令关闭windows特定端口，解决端口被占用问题</a><time datetime="2024-03-18T10:30:00.000Z" title="发表于 2024-03-18 18:30:00">2024-03-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 阿冰</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="爱国,敬业,诚信,友善,富强,民主,文明,和谐,自由,平等,公正,法治" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
