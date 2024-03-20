@@ -1,0 +1,24 @@
+---
+layout:  post
+title:   一句代码获取当前时间的字符串`
+date:   2024-03-18 15:22:54
+author:  'ice'
+header-img: 'img/post-bg-2015.jpg'
+catalog:   false
+tags:
+-java日常
+-java
+
+---
+
+
+直接用这段代码就可以
+
+```java
+String.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+```
+
+yyyy-MM-dd处自定义时间的格式
+ 如写yyyy-MM-dd HH:mm:ss就可以获得2022-12-31 17:11:51
+ 写yyyyMMdd就可以获得20221231
+

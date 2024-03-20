@@ -1,0 +1,31 @@
+---
+layout:  post
+title:   在列表中删除某一条数据（仅前端）
+date:   2023-04-25 16:00:48
+author:  'ice'
+header-img: 'img/post-bg-2015.jpg'
+catalog:   false
+tags:
+-前端
+-html
+-javascript
+-前端
+
+---
+
+
+在表格的最后一行添加一个按钮
+
+
+![img](https://img-blog.csdnimg.cn/img_convert/b7d91017f066537a0733ccea0e463c72.jpeg)
+
+按钮的方法：
+
+```java
+<a onclick="delete(this)"></a>
+<script>
+function delete(obj){
+$(obj).parent().parenet().remove();
+}</script>
+```
+

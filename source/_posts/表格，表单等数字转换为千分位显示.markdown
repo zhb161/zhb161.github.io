@@ -1,0 +1,144 @@
+---
+layout:  post
+title:   表格，表单等数字转换为千分位显示
+date:   2022-11-22 17:18:48
+author:  'ice'
+header-img: 'img/post-bg-2015.jpg'
+catalog:   false
+tags:
+-前端
+-javascript
+-前端
+-开发语言
+
+---
+
+
+#### 封装方法：
+
+```java
+function clearNum(obj) {
+    obj.value = (numberFormat(obj.value,2));
+}
+
+function numberFormat (number, decimals, decPoint, thousandsSep, roundtag) {
+    number = (number + '').replace(/[^0-9+-Ee.]/g, '')
+    roundtag = roundtag || 'ceil' // 'ceil','floor','round'
+    var n = !isFinite(+number) ? 0 : +number
+    var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)
+    var sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep
+    var dec = (typeof decPoint === 'undefined') ? '.' : decPoint
+    var s = ''
+    var toFixedFix = function (n, prec) {
+        var k = Math.pow(10, prec)
+        return '' + parseFloat(Math[roundtag](parseFloat((n * k).toFixed(prec * 2))).toFixed(prec * 2)) / k
+    }
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.')
+    var re = /(-?\d+)(\d{3})/
+    while (re.test(s[0])) {
+        s[0] = s[0].replace(re, '$1' + sep + '$2')
+    }
+
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || ''
+        s[1] += new Array(prec - s[1].length + 1).join('0')
+    }
+    return s.join(dec)
+}
+//复原为数字
+function numberFormatReduce(num){
+    if(num&&num!=undefined&&num!=null){
+        let _num = num;
+        _num = _num.toString();
+        _num = _num.replace(/,/gi,'');
+        return _num
+    }else{
+        return num
+    }
+}
+```
+
+#### 1 列表中的金额
+
+
+![img](https://img-blog.csdnimg.cn/img_convert/00b491cc63d0dac75dc2f0fdd43f07e2.png)
+
+如图，将计划金额（万元）下的金额变为图中这样
+
+```java
+//给表格的tbody上添加一个id
+<table class="frog-table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>立项号</th>
+            <th>项目建议书编号</th>
+            <th>项目名称</th>
+            <th>资金计划渠道</th>
+            <th>计划金额（万元）</th>
+            <th>项目状态</th>
+            <th>申报人</th>
+            <th>申报单位</th>
+            <th>立项时间</th>
+        </tr>
+        </thead>
+        <tbody id="cimp1_tbody">
+        <c:forEach items="${}" var="" varStatus="">
+            <tr target="" rel="${}" onclick="">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td >${projectamt}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+```
+
+在文档中添加一个当文件加载结束后运行的方法，或直接写在script的最后（写在最后是为了防止之前的方法中有要修改数据的）
+
+```java
+$(document).ready(function(){
+    //通过id找到tbody，遍历tr的每一行
+    $("#cimp1_tbody tr").each(function(){
+        var trs = $(this).children();
+        //将这一行的第6个数字修改为千分符，并保留两位小数
+        trs.eq(5).text(numberFormat(trs.eq(5).text(),2))
+    });
+})
+```
+
+#### 2 表单中的金额
+
+同样在文档中添加一个当文件加载结束后运行的方法，或直接写在script的最后（写在最后是为了防止之前的方法中有要修改数据的）
+
+```java
+<script>
+    xxx
+    xxx
+    xxx
+    $('#id').val(numberFormat($('#id').val(),2))
+</script>
+```
+
+注：表单提交之前，要把表单中内容还原成正常的数字
+
+```java
+$('#id').val(numberFormatReduce($('#id').val(),2))
+```
+
+#### 3 在表格中的表单
+
+```java
+$("#tabfourtbody tr").each(function () {// tabfourtbody是表格的tobody的id
+    var trs = $(this).children();
+trs.find("input[name='updateamt']").val((numberFormat(trs.find("input[name='updateamt']").val(),2)));
+}
+```
+
